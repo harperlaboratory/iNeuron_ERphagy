@@ -87,9 +87,9 @@ diff_df_full_erOnly<-left_join(ao_data,organelle_input_er_split,by="Gene.Symbol"
   filter(Compartment_ss %in% c("ER.Lumen","ER.Membrane","ER.Membrane.associated","ER.high.curvature","ER.Receptors","ER.high.sheet"))
 
 ### write supplement output
-# write.csv(diff_df_full_erOnly, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_Diff_erOnly.csv")
+# write.csv(diff_df_full_erOnly, file.path(baseDir, "output/SuppData_Diff_erOnly.csv"))
 
-# write.csv(diff_df_full, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_Diff_allData.csv")
+# write.csv(diff_df_full, file.path(baseDir, "output/SuppData_Diff_allData.csv"))
 
 ## append localizations and extract normalized quant data
 ao_data_tidy<-ao_data%>%
@@ -352,7 +352,7 @@ test<-pheatmap(annotation_heatmap, cluster_cols = F,  cluster_rows = F, color=my
 
 
 
-#ggsave(test,filename="C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig1b_heatmap_highcurveSheet_receptors.pdf",height = 6.5,width=8)
+#ggsave(test,filename=file.path(baseDir, "figures/Fig1b_heatmap_highcurveSheet_receptors.pdf",height = 6.5,width=8))
 
 
 ```
@@ -430,7 +430,7 @@ test<-pheatmap(annotation_heatmap, cluster_cols = F,  cluster_rows = F,annotatio
 
 
 
-#ggsave(test,filename="C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig1a_ER_top50up_diff_protein_heatmap_all.pdf",height = 10,width=8)
+#ggsave(test,filename=file.path(baseDir, "figures/Fig1a_ER_top50up_diff_protein_heatmap_all.pdf",height = 10,width=8))
 
 
 ```
@@ -528,9 +528,9 @@ singles_df_full_erOnly<-left_join(singles,organelle_input_er_split,by="Gene.Symb
   filter(Compartment_ss %in% c("ER.Lumen","ER.Membrane","ER.Membrane.associated","ER.high.curvature","ER.Receptors","ER.high.sheet"))
 
 
-# write.csv(singles_df_full_erOnly, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_singlesKO_erOnly.csv")
+# write.csv(singles_df_full_erOnly, file.path(baseDir, "output/SuppData_singlesKO_erOnly.csv"))
 # 
-# write.csv(singles_df_full, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_singlesKO_allData.csv")
+# write.csv(singles_df_full, file.path(baseDir, "output/SuppData_singlesKO_allData.csv"))
 
 
 
@@ -629,7 +629,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap)
 
 test<-pheatmap(all_dataB_heatmap, cluster_cols = F,  annotation_row = annoB,annotation = annoD, color=myColor, breaks=myBreaks, border_color = FALSE,cluster_rows = F)
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5c_singlets_heatmap_ERhc_ERhs.pdf", height = 4.5,width=7.5)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/Fig5c_singlets_heatmap_ERhc_ERhs.pdf", height = 4.5,width=7.5))
 
 ```
 
@@ -681,7 +681,7 @@ plot1<-ggplot(singles_fc%>%filter(!is.na(Compartment_ss),Compartment_ss != "ER h
 
 plot1
 
-# ggsave(plot = plot1, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig6a_singlets_violin_organelle_accum.pdf", height = 12,width=14)
+# ggsave(plot = plot1, filename = file.path(baseDir, "figures/ExtDataFig6a_singlets_violin_organelle_accum.pdf", height = 12,width=14))
 
 
 ### ER substructure
@@ -707,7 +707,7 @@ pv_fc_er_singles<-ggplot(singles_fc%>%filter(!is.na(Compartment_ss),Compartment_
 
 pv_fc_er_singles
 
-# ggsave(plot = pv_fc_er_singles, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig4a_Singles_KO_accum_ERonly_violin_FC.pdf", height = 6,width=12)
+# ggsave(plot = pv_fc_er_singles, filename = file.path(baseDir, "figures/Fig4a_Singles_KO_accum_ERonly_violin_FC.pdf", height = 6,width=12))
 ```
 
 
@@ -715,7 +715,7 @@ pv_fc_er_singles
 
 ## Additive KO data
 
-Sample set contains WT, ATG12, CA, CAB, CAB_TEX,CAB_TEX_CCPG1
+Sample set contains     
 
 ```{r}
 # USER INPUT
@@ -897,7 +897,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap)
 ## generate heatmap
 test<-pheatmap(all_dataB_heatmap, cluster_cols = F,  annotation_row = annoB,annotation = annoD, color=myColor, breaks=myBreaks, border_color = FALSE,cluster_rows = F)
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig1e_accumdataset_ATG12only_heatmap_ERhc_ERhs.pdf", height = 4.5,width=5)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/Fig1e_accumdataset_ATG12only_heatmap_ERhc_ERhs.pdf", height = 4.5,width=5))
 ```
 
 
@@ -975,7 +975,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap)
 ## generate heatmap
 test<-pheatmap(all_dataB_heatmap, cluster_cols = F,  annotation_row = annoB, color=myColor, breaks=myBreaks, border_color = FALSE,cluster_rows = T,show_rownames=F)
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig6c_accumdataset_AllCond_heatmap_ER.pdf", height = 10,width=7)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/ExtDataFig6c_accumdataset_AllCond_heatmap_ER.pdf", height = 10,width=7))
 ```
 
 
@@ -1017,7 +1017,7 @@ er_atg12_violin<-ggplot(norm_d12_plex2_ann4%>%
 
 er_atg12_violin
 
-# ggsave(plot = er_atg12_violin, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig1d_accumdataset_ATG12only_ERonly_violin_FC.pdf", height = 6,width=8)
+# ggsave(plot = er_atg12_violin, filename = file.path(baseDir, "figures/Fig1d_accumdataset_ATG12only_ERonly_violin_FC.pdf", height = 6,width=8))
 
 
 ### all locales violin plot
@@ -1050,7 +1050,7 @@ all_atg12_violin<-ggplot(norm_d12_plex2_ann4%>%
 
 all_atg12_violin
 
-# ggsave(plot = all_atg12_violin, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig1d_accumdataset_ATG12only_AllOrganelle_violin_FC.pdf", height = 6,width=10)
+# ggsave(plot = all_atg12_violin, filename = file.path(baseDir, "figures/ExtDataFig1d_accumdataset_ATG12only_AllOrganelle_violin_FC.pdf", height = 6,width=10))
 
 
 ###
@@ -1099,7 +1099,7 @@ fig1_atg12_volcano<-ggplot(d12_plexa_annotation%>%filter(Annotation_vol == "neit
         axis.text = element_text(size=16))
 fig1_atg12_volcano
   
-# ggsave(plot = fig1_atg12_volcano, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig1c_accumdataset_ATG12only_VolcanoPlot.pdf", height = 6,width=10)
+# ggsave(plot = fig1_atg12_volcano, filename = file.path(baseDir, "figures/Fig1c_accumdataset_ATG12only_VolcanoPlot.pdf", height = 6,width=10))
 ```
 
 
@@ -1256,7 +1256,7 @@ violin_betas<-ggplot(linear_results %>%filter(Compartment_ss %in% c("Golgi","Lys
         strip.text.x = element_text(size=16))
 violin_betas
 
-# ggsave(plot = violin_betas, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig8f_KO_accum_AllOrganelles_violin_LinearModelBetas.pdf", height = 12,width=14)
+# ggsave(plot = violin_betas, filename = file.path(baseDir, "figures/ExtDataFig8f_KO_accum_AllOrganelles_violin_LinearModelBetas.pdf", height = 12,width=14))
 
 ## ER only
 er_violin_betas<-ggplot(linear_results %>%filter(Compartment_ss %in% c("ER","ER Membrane", "ER Lumen", "ER Membrane associated" )), aes("",coeff,fill=condition,color=condition))+
@@ -1280,7 +1280,7 @@ er_violin_betas<-ggplot(linear_results %>%filter(Compartment_ss %in% c("ER","ER 
   
 
 er_violin_betas
-# ggsave(plot = er_violin_betas, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig4f_KO_accum_ERonly_violin_LinearModelBetas.pdf", height = 6,width=12)
+# ggsave(plot = er_violin_betas, filename = file.path(baseDir, "figures/Fig4f_KO_accum_ERonly_violin_LinearModelBetas.pdf", height = 6,width=12))
 
 ```
 
@@ -1359,7 +1359,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap2)
 
 test<-pheatmap(all_dataB_heatmap2, cluster_cols = F,  annotation_row = annoB,annotation = annoD, color=myColor, breaks=myBreaks, border_color = FALSE,cluster_rows = F)
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5c_Accum_heatmap_ERhc_ERhs.pdf", height = 4.5,width=7.5)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/Fig5c_Accum_heatmap_ERhc_ERhs.pdf", height = 4.5,width=7.5))
 
 ```
 
@@ -1431,7 +1431,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap2)
 ## generate heatmap lumenal ordered by top ranking betas
 test<-pheatmap(all_dataB_heatmap2, cluster_cols = F,  annotation = annoD, color=myColor, breaks=myBreaks, border_color = FALSE,cluster_rows = F)
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9e_Accum_heatmap_ERhc_ERhs.pdf", height = 4.5,width=7.5)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/ExtDataFig9e_Accum_heatmap_ERhc_ERhs.pdf", height = 4.5,width=7.5))
 
 ```
 
@@ -1513,7 +1513,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap7)
 test<-pheatmap(all_dataB_heatmap7, cluster_cols = F,  annotation = annoD, color=myColor, breaks=myBreaks, border_color = FALSE,cluster_rows = F)
 
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9e_ccpg1_heatmap_ERlumen.pdf", height = 13,width=4.5)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/ExtDataFig9e_ccpg1_heatmap_ERlumen.pdf", height = 13,width=4.5))
 ```
 
 #### Export data
@@ -1529,9 +1529,9 @@ accum_df_full_erOnly<-full_join(d12_plexa,nest_df4,by=c("Reference","Gene.Symbol
   filter(Compartment_ss %in% c("ER.Lumen","ER.Membrane","ER.Membrane.associated","ER.high.curvature","ER.Receptors","ER.high.sheet"))
 
 
-# write.csv(accum_df_full_erOnly, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_accumKO_erOnly.csv")
+# write.csv(accum_df_full_erOnly, file.path(baseDir, "output/SuppData_accumKO_erOnly.csv"))
 # 
-# write.csv(accum_df_full, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_accumKO_allData.csv")
+# write.csv(accum_df_full, file.path(baseDir, "output/SuppData_accumKO_allData.csv"))
 
 ```
 
@@ -1592,7 +1592,7 @@ test2<-pheatmap(all_dataB_heatmap2, cluster_cols = F,  annotation = annoD, color
 
 
 
-# ggsave(test2, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9e_ccpg1_heatmap_ERlumen_singles.pdf", height = 13,width=3.5)
+# ggsave(test2, filename = file.path(baseDir, "figures/ExtDataFig9e_ccpg1_heatmap_ERlumen_singles.pdf", height = 13,width=3.5))
 
 ```
 
@@ -1680,7 +1680,7 @@ percentage_plot<-ggplot(ac_bar,aes(count_type,counts/sum_count*100,fill=Compartm
   labs(x="",y="Percentage by \n Sub-ER Compartment",fill="")
 
 percentage_plot
-# ggsave(percentage_plot, file="C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig4h_subER_percentTop25.pdf", height=5,width=4 )
+# ggsave(percentage_plot, file=file.path(baseDir, "figures/Fig4h_subER_percentTop25.pdf", height=5,width=4 ))
 ```
 
 #### Fig5a: heatmap top25/bottom5 atg12FC,BetaAC,BetaPenta
@@ -1829,11 +1829,11 @@ p5d<-ggplot()+
 p5d
 
 
-# ggsave(p5b,file="C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5a_DKOtop25_heatmap.pdf",width=10,height=4)
+# ggsave(p5b,file=file.path(baseDir, "figures/Fig5a_DKOtop25_heatmap.pdf",width=10,height=4))
 # 
-# ggsave(p5c,file="C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5a_PKOtop25_heatmap.pdf",width=10,height=4)
+# ggsave(p5c,file=file.path(baseDir, "figures/Fig5a_PKOtop25_heatmap.pdf",width=10,height=4))
 # 
-# ggsave(p5d,file="C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5a_ATG12top25_heatmap.pdf",width=10,height=4)
+# ggsave(p5d,file=file.path(baseDir, "figures/Fig5a_ATG12top25_heatmap.pdf",width=10,height=4))
 ```
 
 
@@ -1899,7 +1899,7 @@ rownames(annoD) <- colnames(all_dataB_heatmap3)
 test<-pheatmap(all_dataB_heatmap3, cluster_cols = F,  annotation_row = annoB,color=myColor, breaks=myBreaks, border_color = FALSE,annotation = annoD,cluster_rows = F)
 
 
-# ggsave(plot = test, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5c_Accum_heatmap_ERhc_ERhs_LinearModelBetas.pdf", height = 4.5,width=5)
+# ggsave(plot = test, filename = file.path(baseDir, "figures/Fig5c_Accum_heatmap_ERhc_ERhs_LinearModelBetas.pdf", height = 4.5,width=5))
 
 ```
 
@@ -2033,14 +2033,14 @@ plot_fc_accum_point<-plot_grid(p1,p2,p3,p4,nrow=1)
 
 plot_fc_accum_point
 
-# ggsave(plot = plot_fc_accum_point, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig6d_point_plot_fc_toATG12.pdf", height = 6,width=20)
+# ggsave(plot = plot_fc_accum_point, filename = file.path(baseDir, "figures/ExtDataFig6d_point_plot_fc_toATG12.pdf", height = 6,width=20))
 
 
 plot_fc_accum_point<-plot_grid(p1,p4,nrow=2)
 
 plot_fc_accum_point
 
-# ggsave(plot = plot_fc_accum_point, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig4c_point_plot_fc_toATG12.pdf", height = 12,width=6)
+# ggsave(plot = plot_fc_accum_point, filename = file.path(baseDir, "figures/Fig4c_point_plot_fc_toATG12.pdf", height = 12,width=6))
 
 ```
 
@@ -2178,7 +2178,7 @@ plot_accum_fc <- plot_grid(p1,p2,p3,nrow=1, rel_widths = c(1.3,1,1))
 plot_accum_fc
 
 
-# ggsave(plot = plot_accum_fc, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig8a_point_plot_coef_accum_compare.pdf", height = 5.1,width=18)
+# ggsave(plot = plot_accum_fc, filename = file.path(baseDir, "figures/ExtDataFig8a_point_plot_coef_accum_compare.pdf", height = 5.1,width=18))
 
 
 ```
@@ -2212,7 +2212,7 @@ p4h<-ggplot(accum_fc2_CABTEX_CA_coeff%>%filter(Compartment_ss %!in% c("Cis Golgi
 
 p4h
 
-# ggsave(plot = p4h, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig4g_point_plot_AC_penta_betas.pdf", height = 5.1,width=7.14)
+# ggsave(plot = p4h, filename = file.path(baseDir, "figures/Fig4g_point_plot_AC_penta_betas.pdf", height = 5.1,width=7.14))
 ```
 
 
@@ -2755,7 +2755,7 @@ supfig4_sing_accum<-plot_grid(p20,p23,p24,p25,nrow=4,ncol=1, align="hv")
 
 supfig4_sing_accum
 
-# ggsave(plot = supfig4_sing_accum, filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig8bcde_point_plot_singlets_vs_KOaccum.pdf", height = 20.4,width=10.2)
+# ggsave(plot = supfig4_sing_accum, filename = file.path(baseDir, "figures/ExtDataFig8bcde_point_plot_singlets_vs_KOaccum.pdf", height = 20.4,width=10.2))
 
 
 ```
@@ -2835,7 +2835,7 @@ FAM134A<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 FAM134A
 
-# ggsave(FAM134A,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig4e_FAM134A.pdf", height = 7,width=6)
+# ggsave(FAM134A,  filename = file.path(baseDir, "figures/Fig4e_FAM134A.pdf", height = 7,width=6))
 ```
 
 
@@ -2901,7 +2901,7 @@ REEP1<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 REEP1
 
-# ggsave(REEP1,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5e_REEP1.pdf", height = 7,width=6)
+# ggsave(REEP1,  filename = file.path(baseDir, "figures/Fig5e_REEP1.pdf", height = 7,width=6))
 ```
 
 ### REEP3
@@ -2964,7 +2964,7 @@ REEP3<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 REEP3
 
-# ggsave(REEP3,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5e_REEP3.pdf", height = 7,width=6)
+# ggsave(REEP3,  filename = file.path(baseDir, "figures/Fig5e_REEP3.pdf", height = 7,width=6))
 ```
 
 
@@ -3029,7 +3029,7 @@ REEP4<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 REEP4
 
-# ggsave(REEP4,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9b_REEP4.pdf", height = 7,width=6)
+# ggsave(REEP4,  filename = file.path(baseDir, "figures/ExtDataFig9b_REEP4.pdf", height = 7,width=6))
 ```
 
 
@@ -3094,7 +3094,7 @@ REEP5<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 REEP5
 
-# ggsave(REEP5,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9a_REEP5.pdf", height = 7,width=6)
+# ggsave(REEP5,  filename = file.path(baseDir, "figures/ExtDataFig9a_REEP5.pdf", height = 7,width=6))
 ```
 
 
@@ -3160,7 +3160,7 @@ ATL1<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 ATL1
 
-# ggsave(ATL1,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9a_ATL1.pdf", height = 7,width=6)
+# ggsave(ATL1,  filename = file.path(baseDir, "figures/ExtDataFig9a_ATL1.pdf", height = 7,width=6))
 ```
 
 
@@ -3224,7 +3224,7 @@ p3<-plot_grid(NA,p1,NA,nrow=1,rel_widths = c(0.26,1,0.15))
 VAPA<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 VAPA
 
-# ggsave(VAPA,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5f_VAPA.pdf", height = 7,width=6)
+# ggsave(VAPA,  filename = file.path(baseDir, "figures/Fig5f_VAPA.pdf", height = 7,width=6))
 
 ```
 
@@ -3295,7 +3295,7 @@ VAPB<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 VAPB
 
-# ggsave(VAPB,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9f_VAPB.pdf", height = 7,width=6)
+# ggsave(VAPB,  filename = file.path(baseDir, "figures/ExtDataFig9f_VAPB.pdf", height = 7,width=6))
 ```
 
 
@@ -3360,7 +3360,7 @@ RTN1<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 RTN1
 
-# ggsave(RTN1,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5d_RTN1C.pdf", height = 7,width=6)
+# ggsave(RTN1,  filename = file.path(baseDir, "figures/Fig5d_RTN1C.pdf", height = 7,width=6))
 ```
 
 
@@ -3427,7 +3427,7 @@ p3<-plot_grid(NA,p1,NA,nrow=1,rel_widths = c(0.26,1,0.15))
 RTN3<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 RTN3
 
-# ggsave(RTN3,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9a_RTN3.pdf", height = 7,width=6)
+# ggsave(RTN3,  filename = file.path(baseDir, "figures/ExtDataFig9a_RTN3.pdf", height = 7,width=6))
 ```
 
 
@@ -3494,7 +3494,7 @@ P4HA1<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 P4HA1
 
 
-# ggsave(P4HA1,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9d_P4HA1.pdf", height = 7,width=6)
+# ggsave(P4HA1,  filename = file.path(baseDir, "figures/ExtDataFig9d_P4HA1.pdf", height = 7,width=6))
 ```
 
 ### P4HA2
@@ -3557,7 +3557,7 @@ p3<-plot_grid(NA,p1,NA,nrow=1,rel_widths = c(0.26,1,0.15))
 P4HA2<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 P4HA2
 
-# ggsave(P4HA2,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9d_P4HA2.pdf", height = 7,width=6)
+# ggsave(P4HA2,  filename = file.path(baseDir, "figures/ExtDataFig9d_P4HA2.pdf", height = 7,width=6))
 ```
 
 
@@ -3626,7 +3626,7 @@ SPAST<-plot_grid(p3,p2,nrow=2,rel_heights = c(1,2.2))
 
 SPAST
 
-# ggsave(SPAST,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9b_SPAST.pdf", height = 7,width=6)
+# ggsave(SPAST,  filename = file.path(baseDir, "figures/ExtDataFig9b_SPAST.pdf", height = 7,width=6))
 ```
 
 
@@ -3635,7 +3635,7 @@ SPAST
 ```{r}
 
 ## add annotations for TM number
-tm_annotation <- read.csv("C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/data/ER_proteins_TMannotation.csv")%>%
+tm_annotation <- read.csv(file.path(baseDir, "data/ER_proteins_TMannotation.csv")) %>%
   left_join(.,organelle_input_er_split,by="Gene.Symbol")%>%
   filter(Compartment_ss != "ER")%>%
   filter(str_detect(Compartment_ss,"ER." ), Compartment_ss !="ERGIC")
@@ -3784,7 +3784,7 @@ test<-plot_grid(mem,lum,rest,high_sheet,nrow=4)
 
 test
 
-# ggsave(test,file = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/Fig5b_model_figure_betaHeatmapForSig.pdf",height=40,width=20)
+# ggsave(test,file = file.path(baseDir, "figures/Fig5b_model_figure_betaHeatmapForSig.pdf",height=40,width=20))
 ```
 
 
@@ -3792,7 +3792,7 @@ test
 ## Torin data
 
 ```{r}
-tor<- read.csv("C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/data/all_ttest_results_Torin.csv")
+tor<- read.csv(file.path(baseDir, "data/all_ttest_results_Torin.csv"))
 
 tor_ann<-tor%>%left_join(.,organelle_input_er_split,by="Gene.Symbol", relationship="many-to-many")
 
@@ -3809,9 +3809,9 @@ tor_df_full_erOnly<-left_join(tor,organelle_input_er_split,by="Gene.Symbol", rel
   filter(Compartment_ss %in% c("ER.Lumen","ER.Membrane","ER.Membrane.associated","ER.high.curvature","ER.Receptors","ER.high.sheet"))
 
 
-# write.csv(tor_df_full_erOnly, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_torin_erOnly.csv")
+# write.csv(tor_df_full_erOnly, file.path(baseDir, "output/SuppData_torin_erOnly.csv"))
 # 
-# write.csv(tor_df_full, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_torin_allData.csv")
+# write.csv(tor_df_full, file.path(baseDir, "output/SuppData_torin_allData.csv"))
 ```
 
 
@@ -3846,7 +3846,7 @@ pointplot_double<-ggplot(point_plot_tor_input%>%filter(Compartment_ss %!in% c("C
 
 pointplot_double
 
-# ggsave(pointplot_double,  filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig7b_PointPlot_TorinMinUntreated.pdf", height = 8,width=10)
+# ggsave(pointplot_double,  filename = file.path(baseDir, "figures/ExtDataFig7b_PointPlot_TorinMinUntreated.pdf", height = 8,width=10))
 
 ```
 
@@ -3854,7 +3854,7 @@ pointplot_double
 ## TEX264_CCPG1 DKO
 
 ```{r}
-duoKO<-read.csv("C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/data/all_ttest_results_d12_WTATG12TEXCCPG1.csv")
+duoKO<-read.csv(file.path(baseDir, "data/all_ttest_results_d12_WTATG12TEXCCPG1.csv"))
 
 duoKO<-left_join(duoKO,organelle_input_er_split,by="Gene.Symbol",relationship="many-to-many")%>%
   distinct()%>%
@@ -3886,10 +3886,10 @@ p5<-ggplot(duoKO, aes(comparison,value,fill=Compartment_ss))+
 
 p5
 
-# ggsave(plot=p5,filename = "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/figures/ExtDataFig9g_TEXCCPG1_ER_violin.pdf",
-# width = 6,height = 5)
+# ggsave(plot=p5,filename = file.path(baseDir, "figures/ExtDataFig9g_TEXCCPG1_ER_violin.pdf",
+# width = 6,height = 5))
 
-calc<-read.csv("C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/data/all_ttest_results_d12_WTATG12TEXCCPG1.csv")
+calc<-read.csv(file.path(baseDir, "data/all_ttest_results_d12_WTATG12TEXCCPG1.csv"))
 
 ccpg1tex_df_full<-left_join(calc,organelle_input_er_simple,by="Gene.Symbol",relationship="many-to-many")%>%
   distinct()
@@ -3900,9 +3900,131 @@ ccpg1tex_df_full_erOnly<-left_join(calc,organelle_input_er_split,by="Gene.Symbol
   filter(Compartment_ss %in% c("ER.Lumen","ER.Membrane","ER.Membrane.associated","ER.high.curvature","ER.Receptors","ER.high.sheet"))
 
 
-# write.csv(ccpg1tex_df_full_erOnly, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_TEXCCPG1_erOnly.csv")
+# write.csv(ccpg1tex_df_full_erOnly, file.path(baseDir, "output/SuppData_TEXCCPG1_erOnly.csv"))
 # 
-# write.csv(ccpg1tex_df_full, "C:/Harper/Side_analysis/Melissa_shiny/ERphagy/github/iNeuron_ERphagy/iNeuron_ERphagy/output/SuppData_TEXCCPG1_allData.csv")
+# write.csv(ccpg1tex_df_full, file.path(baseDir, "output/SuppData_TEXCCPG1_allData.csv"))
+
+```
+## Additive KO data AT DAY20
+
+Sample set contains     
+
+```{r}
+# USER INPUT
+numberOfSamples <- 16
+
+d12_plexa<- read.csv(file.path(baseDir, "data/WTATG12pentad_20_ttest_results.csv"))
+numberOfCols <- ncol(d12_plexa)
+
+d12_plexa_slim<-d12_plexa%>%
+  dplyr::select(Reference,Gene.Symbol,Annotation,(numberOfCols - numberOfSamples + 1):numberOfCols)%>%
+  group_by(Reference,Gene.Symbol,Annotation)%>%
+  gather("sample","log2_int",4:(4 + numberOfSamples-1))%>%
+  dplyr::mutate(cellLine=dplyr::if_else(str_detect(sample,"WT"),0,1))%>%
+  dplyr::ungroup()
+
+### calculate mean WT intensity for nmomalization
+wt_Only_d12_plexa_slim<-d12_plexa_slim%>%
+  dplyr::filter(cellLine==0)%>%
+  group_by(Reference,Gene.Symbol,Annotation)%>%
+  summarise(mean_wt0 = mean(log2_int))
+
+### mean WT subtract form replicate values sans ATG12
+norm_d12_plex<-left_join(d12_plexa_slim,wt_Only_d12_plexa_slim, by=c("Reference","Gene.Symbol","Annotation") )%>%
+  dplyr::mutate(log2_int_wtd0_norm = log2_int - mean_wt0)%>%
+  filter(str_detect(sample,"ATG12")==F)
+
+### same as above but with ATG12
+norm_d12_plex2<-left_join(d12_plexa_slim,wt_Only_d12_plexa_slim, by=c("Reference","Gene.Symbol","Annotation") )%>%
+  dplyr::mutate(log2_int_wtd0_norm = log2_int - mean_wt0)
 
 ```
 
+### Violin plots for organelle differences
+
+```{r}
+# USER INPUT
+wildType <- "WTd20"
+conditions <- c("ATG12","pentaA2","pentaE4")
+figurePrefix <- "FigNewSupd20"
+conditionFilter <- "d20"
+
+## FC extraction
+
+accum_fc<-d12_plexa%>%
+  select(Reference,Gene.Symbol,Annotation,
+         starts_with("log2FC"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
+  group_by(Reference,Gene.Symbol,Annotation)%>%
+  pivot_longer(cols = starts_with("log2FC_"),
+               names_to = "Condition",
+               values_to = "FCval")%>%
+  mutate(Condition = str_remove(Condition,"log2FC_"),
+         Condition = str_remove_all(Condition, conditionFilter),
+         Condition = str_remove(Condition,"\\.WT"))%>%
+  left_join(.,organelle_input_er_more, by="Gene.Symbol",relationship="many-to-many")%>%
+  mutate(Compartment_ss = str_replace_all(Compartment_ss,"\\."," "))
+
+accum_fc$Condition <- factor(accum_fc$Condition, 
+                             levels=conditions)
+
+
+### ER only
+
+norm_d12_plex2_ann2<-accum_fc%>%
+  filter(str_detect(Compartment_ss,"ER")==T, Compartment_ss != "ERGIC",Compartment_ss != "ER high sheet",Compartment_ss != "ER Receptors",Compartment_ss != "ER high curvature")%>%
+         mutate(Compartment_ss=str_replace_all(Compartment_ss,"\\."," "))
+
+norm_d12_plex2_ann2$Condition <- factor(norm_d12_plex2_ann2$Condition,levels=conditions)
+
+
+pv_fc_er<-ggplot(norm_d12_plex2_ann2%>%filter(Gene.Symbol %!in% c("FAM134C","FAM134B","FAM134A","TEX264","CCPG1"))%>%filter(Condition != "WTd12"), aes(" ", FCval, color=Condition,fill=Condition))+
+  geom_violin(draw_quantiles = c(0.25,0.5,0.75),alpha=0.8, position = position_dodge(),color="black")+theme_classic()+geom_hline(yintercept = 0,linetype="dashed")+
+  scale_fill_manual(values=c("maroon","#5ec962","#21918c","#3b528b","#440154"))+
+  labs(x="",y=bquote(""~Log[2]~"(KO / WT)"))+
+  theme(legend.title = element_blank(),
+        legend.text = element_text(size=16),
+        legend.position = "bottom",
+        axis.title = element_text(size=18),
+        axis.text.x = element_text(size = 18,hjust=1,vjust = 0.2,angle=90),
+        axis.text.y = element_text(size = 16),
+        axis.ticks.x.bottom = element_blank(),
+        axis.title.x = element_blank(),
+        strip.text.x = element_text(size=16))+
+  facet_wrap(.~Compartment_ss, nrow=1)+ylim(c(-1.5,2.5))
+pv_fc_er
+
+ggsave(plot = pv_fc_er, filename = file.path(baseDir, "figures", paste(figurePrefix, "_KO_accum_ERonly_violin_FC.pdf", sep = "")), height = 6,width=12)
+
+## all locale
+
+
+norm_d12_plex2_ann4<-accum_fc%>%
+  filter( Compartment_ss %in% c("Cytosol","Endosome","ER",
+                                "Golgi","Lysosome","Mitochondria",
+                                "Nucleus","Peroxisome","Plasma Membrane"))
+
+norm_d12_plex2_ann4$Condition <- factor(norm_d12_plex2_ann4$Condition,levels=conditions)
+
+
+pv_fc_all<-ggplot(norm_d12_plex2_ann4, aes(" ", FCval, color=Condition,fill=Condition))+
+  geom_violin(draw_quantiles = c(0.25,0.5,0.75),alpha=0.8, position = position_dodge(),color="black")+theme_classic()+geom_hline(yintercept = 0,linetype="dashed")+
+  scale_fill_manual(values=c("maroon","#5ec962","#21918c","#3b528b","#440154"))+
+  scale_color_manual(values=c("maroon","#5ec962","#21918c","#3b528b","#440154"))+
+  labs(x="",y=bquote(""~Log[2]~"(KO / WT)"))+
+  theme(legend.title = element_blank(),
+        legend.text = element_text(size=16),
+        legend.position = "top",
+        axis.title = element_text(size=18),
+        axis.text.x = element_text(size = 18,hjust=1,vjust = 0.2,angle=90),
+        axis.text.y = element_text(size = 16),
+        axis.ticks.x.bottom = element_blank(),
+        axis.title.x = element_blank(),
+        strip.text.x = element_text(size=16))+
+  facet_wrap(.~Compartment_ss,nrow=3)+ylim(c(-1.5,1.5))+ guides(fill = guide_legend(nrow = 1))
+
+pv_fc_all
+
+ggsave(plot = pv_fc_all, filename = file.path(baseDir, "figures", paste(figurePrefix, "_KO_accum_AllOrganelles_violin_FC_nopoints.pdf", sep = "")), height = 12,width=14)
+
+```
