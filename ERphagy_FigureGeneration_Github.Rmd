@@ -753,26 +753,28 @@ norm_d12_plex2<-left_join(d12_plexa_slim,wt_Only_d12_plexa_slim, by=c("Reference
 ```{r}
 # USER INPUT
 wildType <- "WTd20"
-conditions <- c("ATG12d20","pentaA2d20","pentaE4d20")
+conditions <- c("ATG12","pentaA2","pentaE4")
+figurePrefix <- "FigNewSupd20"
+conditionFilter <- "d20"
 
 ## FC extraction
 
 accum_fc<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
   group_by(Reference,Gene.Symbol,Annotation)%>%
   pivot_longer(cols = starts_with("log2FC_"),
                names_to = "Condition",
                values_to = "FCval")%>%
   mutate(Condition = str_remove(Condition,"log2FC_"),
-         Condition = str_remove_all(Condition,"d12"),
+         Condition = str_remove_all(Condition, conditionFilter),
          Condition = str_remove(Condition,"\\.WT"))%>%
   left_join(.,organelle_input_er_more, by="Gene.Symbol",relationship="many-to-many")%>%
   mutate(Compartment_ss = str_replace_all(Compartment_ss,"\\."," "))
 
 accum_fc$Condition <- factor(accum_fc$Condition, 
-                             levels=c("ATG12","CA","CAB","CABTEX","CABTEXCCPG1"))
+                             levels=conditions)
 
 
 ### ER only
@@ -781,7 +783,7 @@ norm_d12_plex2_ann2<-accum_fc%>%
   filter(str_detect(Compartment_ss,"ER")==T, Compartment_ss != "ERGIC",Compartment_ss != "ER high sheet",Compartment_ss != "ER Receptors",Compartment_ss != "ER high curvature")%>%
          mutate(Compartment_ss=str_replace_all(Compartment_ss,"\\."," "))
 
-norm_d12_plex2_ann2$Condition <- factor(norm_d12_plex2_ann2$Condition,levels=c("ATG12","CA","CAB","CABTEX","CABTEXCCPG1"))
+norm_d12_plex2_ann2$Condition <- factor(norm_d12_plex2_ann2$Condition,levels=conditions)
 
 
 pv_fc_er<-ggplot(norm_d12_plex2_ann2%>%filter(Gene.Symbol %!in% c("FAM134C","FAM134B","FAM134A","TEX264","CCPG1"))%>%filter(Condition != "WTd12"), aes(" ", FCval, color=Condition,fill=Condition))+
@@ -800,7 +802,7 @@ pv_fc_er<-ggplot(norm_d12_plex2_ann2%>%filter(Gene.Symbol %!in% c("FAM134C","FAM
   facet_wrap(.~Compartment_ss, nrow=1)+ylim(c(-1.5,2.5))
 pv_fc_er
 
-ggsave(plot = pv_fc_er, filename = file.path(baseDir, "figures/Fig4b_KO_accum_ERonly_violin_FC.pdf"), height = 6,width=12)
+ggsave(plot = pv_fc_er, filename = file.path(baseDir, "figures", paste(figurePrefix, "_KO_accum_ERonly_violin_FC.pdf", sep = "")), height = 6,width=12)
 
 ## all locale
 
@@ -810,7 +812,7 @@ norm_d12_plex2_ann4<-accum_fc%>%
                                 "Golgi","Lysosome","Mitochondria",
                                 "Nucleus","Peroxisome","Plasma Membrane"))
 
-norm_d12_plex2_ann4$Condition <- factor(norm_d12_plex2_ann4$Condition,levels=c("ATG12","CA","CAB","CABTEX","CABTEXCCPG1"))
+norm_d12_plex2_ann4$Condition <- factor(norm_d12_plex2_ann4$Condition,levels=conditions)
 
 
 pv_fc_all<-ggplot(norm_d12_plex2_ann4, aes(" ", FCval, color=Condition,fill=Condition))+
@@ -831,7 +833,7 @@ pv_fc_all<-ggplot(norm_d12_plex2_ann4, aes(" ", FCval, color=Condition,fill=Cond
 
 pv_fc_all
 
-ggsave(plot = pv_fc_all, filename = file.path(baseDir, "figures/ExtDataFig6b_KO_accum_AllOrganelles_violin_FC_nopoints.pdf"), height = 12,width=14)
+ggsave(plot = pv_fc_all, filename = file.path(baseDir, "figures", paste(figurePrefix, "_KO_accum_AllOrganelles_violin_FC_nopoints.pdf", sep = "")), height = 12,width=14)
 
 ```
 
@@ -1055,7 +1057,7 @@ all_atg12_violin
 accum_fc<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
   group_by(Reference,Gene.Symbol,Annotation)%>%
   pivot_longer(cols = starts_with("log2FC_"),
                names_to = "Condition",
@@ -1912,7 +1914,7 @@ test<-pheatmap(all_dataB_heatmap3, cluster_cols = F,  annotation_row = annoB,col
 accum_fc2_CA<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
   left_join(.,organelle_input_er_more, by="Gene.Symbol",relationship="many-to-many")%>%
   mutate(Compartment_ss = str_replace_all(Compartment_ss,"\\."," "))%>%
   dplyr::ungroup()%>%
@@ -1941,7 +1943,7 @@ p1<-ggplot(accum_fc2_CA%>%filter(Compartment_ss %!in% c("Cis Golgi","Trans Golgi
 accum_fc2_CAB<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
   left_join(.,organelle_input_er_more, by="Gene.Symbol",relationship="many-to-many")%>%
   mutate(Compartment_ss = str_replace_all(Compartment_ss,"\\."," "))%>%
   dplyr::ungroup()%>%
@@ -1971,7 +1973,7 @@ p2<-ggplot(accum_fc2_CAB%>%filter(Compartment_ss %!in% c("Cis Golgi","Trans Golg
 accum_fc2_CABTEX<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
   left_join(.,organelle_input_er_more, by="Gene.Symbol",relationship="many-to-many")%>%
   mutate(Compartment_ss = str_replace_all(Compartment_ss,"\\."," "))%>%
   dplyr::ungroup()%>%
@@ -2003,7 +2005,7 @@ p3<-ggplot(accum_fc2_CABTEX%>%filter(Compartment_ss %!in% c("Cis Golgi","Trans G
 accum_fc2_CABTEXCCPG1<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))%>%
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))%>%
   left_join(.,organelle_input_er_more, by="Gene.Symbol",relationship="many-to-many")%>%
   mutate(Compartment_ss = str_replace_all(Compartment_ss,"\\."," "))%>%
   dplyr::ungroup()%>%
@@ -2052,7 +2054,7 @@ Plot correlation plot for Beta information based on sub-cellular compartment.
 accum_fc2_all<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))
 
 
 linear_results_all <- nest_df4_ann2%>%
@@ -2281,7 +2283,7 @@ this is equivalent to the fold changes
 accum_fc2_all<-d12_plexa%>%
   select(Reference,Gene.Symbol,Annotation,
          starts_with("log2FC"))%>%
-  select(Reference,Gene.Symbol,Annotation,ends_with("WTd12"))
+  select(Reference,Gene.Symbol,Annotation,ends_with(wildType))
 
 
 linear_results_all <- nest_df4_ann2%>%
