@@ -719,9 +719,9 @@ Sample set contains
 
 ```{r}
 # USER INPUT
-numberOfSamples <- 16
+numberOfSamples <- 18
 
-d12_plexa<- read.csv(file.path(baseDir, "data/WTATG12pentad_20_ttest_results.csv"))
+d12_plexa<- read.csv(file.path(baseDir, "data/d12_WTATG12_CA_CAB_quad_penta_ttest_results.csv"))
 numberOfCols <- ncol(d12_plexa)
 
 d12_plexa_slim<-d12_plexa%>%
@@ -752,10 +752,9 @@ norm_d12_plex2<-left_join(d12_plexa_slim,wt_Only_d12_plexa_slim, by=c("Reference
 
 ```{r}
 # USER INPUT
-wildType <- "WTd20"
-conditions <- c("ATG12","pentaA2","pentaE4")
-figurePrefix <- "FigNewSupd20"
-conditionFilter <- "d20"
+wildType <- "WTd12"
+conditions <- c("ATG12","CA","CAB","CABTEX","CABTEXCCPG1")
+conditionFilter <- "d12"
 
 ## FC extraction
 
@@ -802,7 +801,7 @@ pv_fc_er<-ggplot(norm_d12_plex2_ann2%>%filter(Gene.Symbol %!in% c("FAM134C","FAM
   facet_wrap(.~Compartment_ss, nrow=1)+ylim(c(-1.5,2.5))
 pv_fc_er
 
-ggsave(plot = pv_fc_er, filename = file.path(baseDir, "figures", paste(figurePrefix, "_KO_accum_ERonly_violin_FC.pdf", sep = "")), height = 6,width=12)
+ggsave(plot = pv_fc_er, filename = file.path(baseDir, "figures", paste("Fig4b", "_KO_accum_ERonly_violin_FC.pdf", sep = "")), height = 6,width=12)
 
 ## all locale
 
@@ -833,7 +832,7 @@ pv_fc_all<-ggplot(norm_d12_plex2_ann4, aes(" ", FCval, color=Condition,fill=Cond
 
 pv_fc_all
 
-ggsave(plot = pv_fc_all, filename = file.path(baseDir, "figures", paste(figurePrefix, "_KO_accum_AllOrganelles_violin_FC_nopoints.pdf", sep = "")), height = 12,width=14)
+ggsave(plot = pv_fc_all, filename = file.path(baseDir, "figures", paste("ExtDataFig6b", "_KO_accum_AllOrganelles_violin_FC_nopoints.pdf", sep = "")), height = 12,width=14)
 
 ```
 
