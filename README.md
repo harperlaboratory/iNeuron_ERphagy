@@ -14,3 +14,5 @@ To generate figures to display proteomics data (violin plots, volcano plots, hea
 For a second proteomics data analysis (to generate random selections of proteins and test how these random selections compare to protein lists of interest) the Scriptforrandomselectioncomparision file was used. 
 
 To generate plots for cryo-ET analysis the ERphagy_iNeurons_cryoET_plots.ipynb was used. This was created by cptcst.
+
+Cite the code: [![DOI](https://zenodo.org/badge/622361831.svg)](https://zenodo.org/doi/10.5281/zenodo.10606794)
